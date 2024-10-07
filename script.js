@@ -17,3 +17,4 @@ async function fetchDepartures() {
 
 // Call the function to fetch data
 fetchDepartures();
+
