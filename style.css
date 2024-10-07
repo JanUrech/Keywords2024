@@ -1,0 +1,67 @@
+/* ================================
+   Global styles
+   ================================ */
+
+:root {
+    --darkpurple: #44354C;
+    --brightpurple: #BB89BD;
+    --lightpurple: #ECDAF2;
+    --red: #E68999;
+    --blue: #8DA7D7;
+}
+
+body {
+    background-color: var(--darkpurple);
+    display: flex;
+    flex-direction: column;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+}
+
+article {
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+}
+
+.left{
+    align-items: flex-start;
+    text-align: left;
+}
+
+.right{
+    align-items: flex-end;
+    text-align: right;
+}
+
+/* ================================
+   Typography
+   ================================ */
+
+h1 {
+    color: var(--brightpurple);
+    font-family: "brando", serif;
+    font-weight: 600; 
+    font-size: 24px;
+}
+
+p {
+    color: white;
+    font-family: "brando", serif;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* ================================
+   Images
+   ================================ */
+
+#titleIMG {
+    height: 100vh;
+    margin: 20px 0;
+    margin-left: -400px;
+}
+

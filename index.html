@@ -1,39 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Fetch Example</title>
+    <title>Keys of 2024
+    </title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.typekit.net/hfr1ina.css">
+    <link rel="icon" href="Images/Favicon.svg" type="image/x-icon">
 </head>
+
 <body>
+    <header>
+        <img src="Images/Artboard 17.svg" alt="The keys to the 2024 election" id="titleIMG">
+    </header>
+    <Section alt="intro">
+        <article alt="introText">
+            <h2 class=""></h2>
+            <p class=""></p>
+        </article>
+    <Section alt="wordcloudCt" class="right">
+        <article alt="wordcloudText">
+            <h1>wordcloud</h1>
+            <p> The wordcloud shows the most used Keywords of the selected month. The larger a word the more it has been used. </p>
+        </article>
+        <article alt="wordcloudGraphic">
+            <div alt="wordcloud">
+            </div>
+            <div alt="timebar"></div>
+        </article>
+    </Section>
+    <!-- Section: KeywordBars -->
+    <section alt="keywordBarsCt" class="left">
+        <article alt="keywordBarsText">
+            <h1>Bars</h1>
+            <p>To get a better overview over the last months and the development over time here you can see how the top 10 have changed over the passed months. </p>
+        </article>
+        <article alt="keywordBarsGraphic">
+            <div alt="keywordBars"></div>
+        </article>
+    </section>
 
-    <h1>Fetching Departures Data</h1>
-    <p>Check the browser's console for the API data.</p>
+    <!-- Section: States -->
+    <section alt="statesCt" class="right">
+        <article alt="statesText" >
+            <h1>States</h1>
+            <p>See on which states the focus is in the New York Times News Broadcast. Here the traditionally red and blue states are in their respective colors. 
+                The ominous swingstates are displayed in purple. The size of the state is determined by the amount of times it was mentioned in the broadcast.
+            </p>
+        </article>
+        <article alt="statesGraphic">
+            <div alt="statesMap"></div>
+        </article>
+    </section>
+
+    <!-- Section: Candidates -->
+    <section alt="candidatesCt">
+        <article alt="candidatesText">
+            <h1>Candidates</h1>
+            <p> Now lets concentrate on the candidates involved in the eletion themselves. Ceck in which month, who of the two was in the focus more. </p>
+        </article>
+        <article alt="candidatesGraphic">
+            <div alt="candidatesList"></div>
+        </article>
+    </section>
 
 
-    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2SdMEke7JCBEo8t60iyw2r?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </article>
+    </Section>
 
-    <script>
-        // URL of the API you want to fetch data from
-        const url = 'https://api.nytimes.com/svc/news/v3/content/all/all.json?api-key=F3hbvwk1R3qKIAi0fI7bbVpFIUz540Gm';
 
-        // Function to fetch data and log it to the console
-        async function fetchDepartures() {
-            try {
-                const response = await fetch(url); // Fetch data from the API
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`); // Handle non-2xx responses
-                }
-                const data = await response.json(); // Parse the JSON from the response
-                console.log(data); // Log the fetched data to the console
-            } catch (error) {
-                console.error('Error fetching data:', error); // Log errors to the console
-            }
-        }
 
-        // Call the function to fetch data
-        fetchDepartures();
-    </script>
 
 </body>
+
 </html>
+<script src="script.js"></script>
