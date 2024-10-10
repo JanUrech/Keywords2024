@@ -1,25 +1,82 @@
 <?php
 
-function fetchWeatherData() {
-    $url = "https://api.nytimes.com/svc/news/v3/content/all/all.json?api-key=F3hbvwk1R3qKIAi0fI7bbVpFIUz540Gm";
+// API-URL for the New York Times articles
+$url = "https://api.nytimes.com/svc/news/v3/content/all/all.json?api-key=F3hbvwk1R3qKIAi0fI7bbVpFIUz540Gm";
 
-    // Initialisiert eine cURL-Sitzung
-    $ch = curl_init($url);
+// Initialize a cURL session
+$ch = curl_init($url);
 
-    // Setzt Optionen
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+// Set options for the cURL session
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-    // Führt die cURL-Sitzung aus und erhält den Inhalt
-    $response = curl_exec($ch);
+// Execute the cURL session and get the content
+$response = curl_exec($ch);
+$http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-    // Schließt die cURL-Sitzung
-    curl_close($ch);
+// Check for cURL errors or HTTP status codes other than 200
+if ($response === false || $http_status !== 200) {
+    echo "Error fetching data: " . curl_error($ch) . " (HTTP Status: $http_status)";
+} else {
+    // Decode the JSON response into a PHP array
+    $data = json_decode($response, true);
 
-    // Dekodiert die JSON-Antwort und gibt Daten zurück
-    return json_decode($response, true);
+    // Check if the decoding was successful
+    if (json_last_error() === JSON_ERROR_NONE) {
+        // Check if articles are present
+        if (isset($data['results'])) {
+            foreach ($data['results'] as $article) {
+                // Filter articles that mention "Presidential Election of 2024" in des_facet
+                if (isset($article['des_facet']) && in_array("Presidential Election of 2024", $article['des_facet'])) {
+                    // Display article information
+                    echo "<strong>Title:</strong> " . htmlspecialchars($article['title']) . "<br>";
+                    echo "<strong>Slug Name:</strong> " . htmlspecialchars($article['slug_name']) . "<br>";
+                    echo "<strong>Byline:</strong> " . htmlspecialchars($article['byline']) . "<br>";
+                    echo "<strong>Section:</strong> " . htmlspecialchars($article['section']) . "<br>";
+                    echo "<strong>Subsection:</strong> " . htmlspecialchars($article['subsection']) . "<br>";
+                    echo "<strong>Created Date:</strong> " . htmlspecialchars($article['created_date']) . "<br>";
+                    echo "<strong>First Published Date:</strong> " . htmlspecialchars($article['first_published_date']) . "<br>";
+                    echo "<strong>Published Date:</strong> " . htmlspecialchars($article['published_date']) . "<br>";
+                    echo "<strong>Updated Date:</strong> " . htmlspecialchars($article['updated_date']) . "<br>";
+                    echo "<strong>Source:</strong> " . htmlspecialchars($article['source']) . "<br>";
+                    echo "<strong>Article URL:</strong> <a href='" . htmlspecialchars($article['url']) . "'>" . htmlspecialchars($article['url']) . "</a><br>";
+
+                    // Display des_facet if available
+                    if (!empty($article['des_facet'])) {
+                        echo "<strong>Topics:</strong> " . implode(", ", array_map('htmlspecialchars', $article['des_facet'])) . "<br>";
+                    }
+
+                    // Display org_facet if available
+                    if (!empty($article['org_facet'])) {
+                        echo "<strong>Organizations:</strong> " . implode(", ", array_map('htmlspecialchars', $article['org_facet'])) . "<br>";
+                    }
+
+                    // Display per_facet if available
+                    if (!empty($article['per_facet'])) {
+                        echo "<strong>Persons:</strong> " . implode(", ", array_map('htmlspecialchars', $article['per_facet'])) . "<br>";
+                    }
+
+                    // Display geo_facet if available
+                    if (!empty($article['geo_facet'])) {
+                        echo "<strong>Geographical Locations:</strong> " . implode(", ", array_map('htmlspecialchars', $article['geo_facet'])) . "<br>";
+                    }
+
+                    // Add a horizontal line between articles
+                    echo "<hr>";
+                }
+            }
+        } else {
+            echo "No articles found.";
+        }
+    } else {
+        echo "Error retrieving data: " . json_last_error_msg();
+    }
 }
 
+// Close the cURL session
+curl_close($ch);
 
-// Gibt die Daten zurück, wenn dieses Skript eingebunden ist
-return fetchWeatherData();
+
+
+
+
 ?>
