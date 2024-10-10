@@ -27,20 +27,10 @@ if ($response === false || $http_status !== 200) {
             foreach ($data['results'] as $article) {
                 // Filter articles that mention "Presidential Election of 2024" in des_facet
                 if (isset($article['des_facet']) && in_array("Presidential Election of 2024", $article['des_facet'])) {
-                    // Display article information
-                    echo "<strong>Title:</strong> " . htmlspecialchars($article['title']) . "<br>";
-                    echo "<strong>Slug Name:</strong> " . htmlspecialchars($article['slug_name']) . "<br>";
-                    echo "<strong>Byline:</strong> " . htmlspecialchars($article['byline']) . "<br>";
-                    echo "<strong>Section:</strong> " . htmlspecialchars($article['section']) . "<br>";
-                    echo "<strong>Subsection:</strong> " . htmlspecialchars($article['subsection']) . "<br>";
-                    echo "<strong>Created Date:</strong> " . htmlspecialchars($article['created_date']) . "<br>";
-                    echo "<strong>First Published Date:</strong> " . htmlspecialchars($article['first_published_date']) . "<br>";
+                    // Display only the required information
                     echo "<strong>Published Date:</strong> " . htmlspecialchars($article['published_date']) . "<br>";
-                    echo "<strong>Updated Date:</strong> " . htmlspecialchars($article['updated_date']) . "<br>";
-                    echo "<strong>Source:</strong> " . htmlspecialchars($article['source']) . "<br>";
-                    echo "<strong>Article URL:</strong> <a href='" . htmlspecialchars($article['url']) . "'>" . htmlspecialchars($article['url']) . "</a><br>";
 
-                    // Display des_facet if available
+                    // Display des_facet (Tags) if available
                     if (!empty($article['des_facet'])) {
                         echo "<strong>Topics:</strong> " . implode(", ", array_map('htmlspecialchars', $article['des_facet'])) . "<br>";
                     }
@@ -60,6 +50,9 @@ if ($response === false || $http_status !== 200) {
                         echo "<strong>Geographical Locations:</strong> " . implode(", ", array_map('htmlspecialchars', $article['geo_facet'])) . "<br>";
                     }
 
+                    // Display the article URL
+                    echo "<strong>Article URL:</strong> <a href='" . htmlspecialchars($article['url']) . "'>" . htmlspecialchars($article['url']) . "</a><br>";
+
                     // Add a horizontal line between articles
                     echo "<hr>";
                 }
@@ -74,9 +67,5 @@ if ($response === false || $http_status !== 200) {
 
 // Close the cURL session
 curl_close($ch);
-
-
-
-
 
 ?>
