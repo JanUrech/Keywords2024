@@ -6,7 +6,7 @@
             "id": "01",
             "properties": {
                 "name": "Alabama",
-                "density": 94.65
+                "density": 94.65 
             },
             "geometry": {
                 "type": "Polygon",

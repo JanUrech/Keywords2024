@@ -1,4 +1,68 @@
 <?php
+// Mapping of state abbreviations to full state names
+$stateAbbreviations = [
+    'Ala' => 'Alabama',
+    'Alaska' => 'Alaska',
+    'Ariz' => 'Arizona',
+    'Ark' => 'Arkansas',
+    'Calif' => 'California',
+    'Colo' => 'Colorado',
+    'Conn' => 'Connecticut',
+    'Del' => 'Delaware',
+    'Fla' => 'Florida',
+    'Ga' => 'Georgia',
+    'Hawaii' => 'Hawaii',
+    'Idaho' => 'Idaho',
+    'Ill' => 'Illinois',
+    'Ind' => 'Indiana',
+    'Iowa' => 'Iowa',
+    'Kan' => 'Kansas',
+    'Ky' => 'Kentucky',
+    'La' => 'Louisiana',
+    'Maine' => 'Maine',
+    'Md' => 'Maryland',
+    'Mass' => 'Massachusetts',
+    'Mich' => 'Michigan',
+    'Minn' => 'Minnesota',
+    'Miss' => 'Mississippi',
+    'Mo' => 'Missouri',
+    'Mont' => 'Montana',
+    'Neb' => 'Nebraska',
+    'Nev' => 'Nevada',
+    'NH' => 'New Hampshire',
+    'NJ' => 'New Jersey',
+    'NM' => 'New Mexico',
+    'NY' => 'New York',
+    'NC' => 'North Carolina',
+    'ND' => 'North Dakota',
+    'Ohio' => 'Ohio',
+    'Okla' => 'Oklahoma',
+    'Ore' => 'Oregon',
+    'Pa' => 'Pennsylvania',
+    'RI' => 'Rhode Island',
+    'SC' => 'South Carolina',
+    'SD' => 'South Dakota',
+    'Tenn' => 'Tennessee',
+    'Tex' => 'Texas',
+    'Utah' => 'Utah',
+    'Vt' => 'Vermont',
+    'Va' => 'Virginia',
+    'Wash' => 'Washington',
+    'WV' => 'West Virginia',
+    'Wis' => 'Wisconsin',
+    'Wyo' => 'Wyoming'
+];
+
+// Function to extract and replace cities with state names
+function replaceCityWithState($geoData, $stateAbbreviations) {
+    foreach ($stateAbbreviations as $abbr => $state) {
+        if (strpos($geoData, "($abbr)") !== false) {
+            return $state; // Return the state name if the abbreviation is found
+        }
+    }
+    return $geoData; // Return the original geo data if no abbreviation is found
+}
+
 // Database connection parameters
 $host = 'mw2lgm.myd.infomaniak.com'; // Your database host
 $dbname = 'mw2lgm_electionkeys'; // Your database name
@@ -69,6 +133,11 @@ if (json_last_error() === JSON_ERROR_NONE) {
                             // Format the name if it's a person in 'per_facet'
                             if ($type === 'Person') {
                                 $keyword = formatName($keyword); // Apply name formatting
+                            }
+
+                            // Replace city with state if it's a geographic facet
+                            if ($type === 'Geo') {
+                                $keyword = replaceCityWithState($keyword, $stateAbbreviations);
                             }
 
                             // Check if the keyword already exists for the given article URL
