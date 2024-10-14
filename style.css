@@ -67,8 +67,14 @@ p {
    ================================ */
 
 #titleIMG {
-    height: 100vh;
+    width: 90vw;
     margin: 20px 0;
-    margin-left: -400px;
+    margin-left: -15vw;
 }
+
+        /* Setze die Höhe der Karte */
+        #map {
+            height: 600px;
+        }
+
 

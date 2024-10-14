@@ -4,77 +4,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keys of 2024
-    </title>
+    <title>Keys of 2024</title>
+
+    <!-- Stylesheet für Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <!-- Deine eigenen CSS-Dateien -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://use.typekit.net/hfr1ina.css">
     <link rel="icon" href="Images/Favicon.svg" type="image/x-icon">
+
+    <!-- Word Cloud Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.2.2/wordcloud2.min.js"></script>
+
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
+
 
 <body>
     <header>
         <img src="Images/Artboard 17.svg" alt="The keys to the 2024 election" id="titleIMG">
     </header>
     <main>
-    <Section alt="intro">
-        <article alt="introText">
-            <h2 class=""></h2>
-            <p class=""></p>
-        </article>
-    <Section alt="wordcloudCt" class="right">
-        <article alt="wordcloudText">
-            <h1>wordclooooooud</h1>
-            <p> The wordcloud shows the most used Keywords of the selected month. The larger a word the more it has been used. </p>
-        </article>
-        <article alt="wordcloudGraphic">
-            <div alt="wordcloud">
-            </div>
-            <div alt="timebar"></div>
-        </article>
-    </Section>
-    <!-- Section: KeywordBars -->
-    <section alt="keywordBarsCt" class="left">
-        <article alt="keywordBarsText">
-            <h1>Bars</h1>
-            <p>To get a better overview over the last months and the development over time here you can see how the top 10 have changed over the passed months. </p>
-        </article>
-        <article alt="keywordBarsGraphic">
-            <div alt="keywordBars"></div>
-        </article>
-    </section>
+        <Section alt="intro">
+            <article alt="introText">
+                <h2 class=""></h2>
+                <p class=""></p>
+            </article>
+            <section alt="wordcloudCt" class="right">
+                <article alt="wordcloudText">
+                    <h1>WordCloud</h1>
+                    <p>The wordcloud shows the most used keywords of the selected month. The larger a word, the more it
+                        has been used.</p>
+                </article>
+                <article alt="wordcloudGraphic">
+                    <div id="wordcloud"></div>
+                </article>
+            </section>
+            <!-- Section: KeywordBars -->
+            <section alt="keywordBarsCt" class="left">
+                <article alt="keywordBarsText">
+                    <h1>Bars</h1>
+                    <p>To get a better overview over the last months and the development over time here you can see how
+                        the top 10 have changed over the passed months. </p>
+                </article>
+                <article alt="keywordBarsGraphic">
+                    <div alt="keywordBars"></div>
+                </article>
+            </section>
 
-    <!-- Section: States -->
-    <section alt="statesCt" class="right">
-        <article alt="statesText" >
-            <h1>States</h1>
-            <p>See on which states the focus is in the New York Times News Broadcast. Here the traditionally red and blue states are in their respective colors. 
-                The ominous swingstates are displayed in purple. The size of the state is determined by the amount of times it was mentioned in the broadcast.
-            </p>
-        </article>
-        <article alt="statesGraphic">
-            <div alt="statesMap"></div>
-        </article>
-    </section>
+            <!-- Section: States -->
+            <section alt="statesCt" class="right">
+                <article alt="statesText">
+                    <h1>States</h1>
+                    <p>See on which states the focus is in the New York Times News Broadcast. Here the traditionally red
+                        and blue states are in their respective colors.
+                        The ominous swingstates are displayed in purple. The size of the state is determined by the
+                        amount of times it was mentioned in the broadcast.
+                    </p>
+                </article>
+                <article alt="statesGraphic">
+                    <div alt="statesMap">
+                        <div id="map">
 
-    <!-- Section: Candidates -->
-    <section alt="candidatesCt">
-        <article alt="candidatesText">
-            <h1>Candidates</h1>
-            <p> Now lets concentrate on the candidates involved in the eletion themselves. Ceck in which month, who of the two was in the focus more. </p>
-        </article>
-        <article alt="candidatesGraphic">
-            <div alt="candidatesList"></div>
-        </article>
-    </section>
 
-</main>
+                        </div>
+
+                    </div>
+                </article>
+            </section>
+
+            <!-- Section: Candidates -->
+            <section alt="candidatesCt">
+                <article alt="candidatesText">
+                    <h1>Candidates</h1>
+                    <p> Now lets concentrate on the candidates involved in the eletion themselves. Ceck in which month,
+                        who of the two was in the focus more. </p>
+                </article>
+                <article alt="candidatesGraphic">
+                    <div alt="candidatesList"></div>
+                </article>
+            </section>
+
+    </main>
     </article>
     </Section>
 
 
-
+    <script src="JavaScript/script.js"> </script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>    
+    <script src="JavaScript/us-states.js"></script>
+    <script src="JavaScript/map.js"></script>
 
 </body>
 
 </html>
-<script src="script.js"></script>

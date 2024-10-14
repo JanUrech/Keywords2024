@@ -23,6 +23,17 @@ function keywordExists($keyword, $article_url, $pdo) {
     return $stmt->fetchColumn() > 0; // Returns true if a record exists, false otherwise
 }
 
+// Function to format "LastName, FirstName Initial" to "FirstName LastName Initial"
+function formatName($name) {
+    if (strpos($name, ',') !== false) {
+        list($lastName, $firstName) = explode(',', $name);
+        $lastName = trim($lastName);
+        $firstName = trim($firstName);
+        return $firstName . ' ' . $lastName;
+    }
+    return $name;
+}
+
 // API URL for the New York Times articles
 $url = "https://api.nytimes.com/svc/news/v3/content/all/all.json?api-key=F3hbvwk1R3qKIAi0fI7bbVpFIUz540Gm";
 
@@ -55,6 +66,11 @@ if (json_last_error() === JSON_ERROR_NONE) {
                 foreach (['des_facet' => 'Topic', 'org_facet' => 'Organization', 'per_facet' => 'Person', 'geo_facet' => 'Geo'] as $facet => $type) {
                     if (!empty($article[$facet])) {
                         foreach ($article[$facet] as $keyword) {
+                            // Format the name if it's a person in 'per_facet'
+                            if ($type === 'Person') {
+                                $keyword = formatName($keyword); // Apply name formatting
+                            }
+
                             // Check if the keyword already exists for the given article URL
                             if (!keywordExists($keyword, $article_url, $pdo)) {
                                 // If it doesn't exist, insert it
