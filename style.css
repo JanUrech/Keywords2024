@@ -73,7 +73,33 @@ p {
 }
 
 #map {
- height: 600px;
+ width: 80%;
+ aspect-ratio: 1.7/1;
+ background: none;
+ align-self: flex-start;
 }
-       
+    
+.leaflet-bottom.leaflet-right {
+    display: none;
+}
 
+g {
+   width: 100%;
+}
+
+/* Standard-Tooltip-Styling */
+.custom-tooltip {
+    background-color: #fff;        /* Hintergrundfarbe des Tooltips */
+    color: #333;                   /* Textfarbe */
+    border: 1px solid #77B84D;     /* Randfarbe passend zu den Swing States */
+    border-radius: 4px;            /* Abgerundete Ecken */
+    padding: 5px;                  /* Innenabstand */
+    font-family: Arial, sans-serif; /* Schriftart */
+    font-size: 12px;               /* Schriftgröße */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3); /* Schatteneffekt */
+}
+
+/* Tooltip-Pfeil anpassen */
+.custom-tooltip:before {
+    border-top-color: #77B84D;  /* Farbe des Pfeils */
+}
