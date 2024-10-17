@@ -2,7 +2,7 @@
    Global styles
    ================================ */
 
-:root {
+   :root {
     --darkpurple: #44354C;
     --brightpurple: #BB89BD;
     --lightpurple: #ECDAF2;
@@ -51,8 +51,7 @@ h1 {
     font-family: "brando", serif;
     font-weight: 600;
     font-size: 24px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px 0;
 }
 
 p {
@@ -90,31 +89,20 @@ g {
 /* Standard-Tooltip-Styling */
 .custom-tooltip {
     background-color: white !important;
-    /* Hintergrundfarbe des Tooltips */
     color: #44354C !important;
-    /* Textfarbe */
     border: 2px solid #44354C !important;
-    /* Randfarbe passend zu den Swing States */
     border-radius: 0px;
-    /* Abgerundete Ecken */
     padding: 5px !important;
-    /* Innenabstand */
     font-family: "brando", serif !important;
-    /* Schriftart */
     font-size: 12px;
-    /* Schriftgröße */
     box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
-    /* Schatteneffekt */
-
 }
 
 /* Tooltip-Pfeil anpassen */
 .custom-tooltip:before {
     border-color: #44354C !important;
     display: none !important;
-    /* Farbe des Pfeils */
 }
-
 
 /* Einfache CSS-Styles für die Bilder */
 img {
@@ -126,19 +114,24 @@ img {
     margin-bottom: 20px;
 }
 
+/* ================================
+   Graphics
+   ================================ */
+
 #graphics {
-    background-image: url(Images/backlines.png);
-    height: 500px;
-    width: 500px;
-    aspect-ratio: 1/1;
     display: flex;
     flex-direction: row;
     align-items: flex-end;
     justify-content: center;
+    height: 500px;
+    background-image: url(Images/backlines.png);
+    background-size: cover;
 }
 
+/* ================================
+   Menu styles
+   ================================ */
 
-/* Container für die gesamte Menü-Linie */
 .menu-container {
     width: 80%;
     margin: 50px auto;
@@ -146,27 +139,7 @@ img {
     justify-content: space-between;
     align-items: center;
     position: relative;
-}
-
-/* Linie */
-.line {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background-color: #ccc;
-    z-index: 1;
-}
-
-/* Container für die gesamte Menü-Linie */
-.menu-container {
-    width: 80%;
-    margin: 50px auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
+    height: 50px; /* Höhe des Menüs */
 }
 
 /* Linie */
@@ -184,45 +157,56 @@ img {
 .point {
     position: relative;
     z-index: 2;
-    width: 20px;
-    height: 20px;
-    background-color: #007bff;
-    border-radius: 50%;
-    cursor: pointer;
+    width: 40px; /* Breite jedes Punktes */
+    height: 40px; /* Höhe jedes Punktes */
+    background-color: #007bff; /* Hintergrundfarbe der Punkte */
+    border-radius: 50%; /* Runde Punkte */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white; /* Textfarbe */
+    cursor: pointer; /* Mauszeiger als Hand anzeigen */
     transition: background-color 0.3s ease;
 }
 
-/* Beim Hover über einen Punkt */
 .point:hover {
     background-color: #0056b3;
 }
 
-/* Beschriftung der Punkte */
-.label {
+/* Verbindungslinie zwischen Punkten */
+.point:not(:last-child):after {
+    content: '';
     position: absolute;
+    width: 100px; /* Breite der Linie */
+    height: 2px; /* Dicke der Linie */
+    background-color: #007bff; /* Farbe der Linie */
+    top: 50%; /* Linie in der Mitte der Punkte */
+    left: 100%; /* Linie nach dem Punkt positionieren */
+    transform: translateY(-50%); /* Vertikale Zentrierung der Linie */
+}
+
+/* Beschriftung der Punkte standardmäßig verstecken */
+.label {
+    position: absolute; /* Positionierung für Text */
     top: -30px;
     width: 60px;
     text-align: center;
     font-size: 12px;
     left: -20px;
+    display: none; /* Standardmäßig verstecken */
 }
 
-#graphics {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: center;
-    height: 500px;
-    /* Containerhöhe */
-    background-image: url(Images/backlines.png);
-    background-size: cover;
-    /* Hintergrundbild anpassen */
+/* Zeige die Beschriftung beim Hover an */
+.point:hover .label {
+    display: block; /* Nur beim Hover anzeigen */
 }
 
+
+/* Bildgrößenanpassung für die Kandidaten */
 #donald,
 #kamala {
-    height: 50px;
-    /* Startgröße */
-    transition: height 0.3s;
-    /* Animation für Größenänderung */
+    height: 50px; /* Startgröße */
+    transition: height 0.3s; /* Animation für Größenänderung */
 }
+
+

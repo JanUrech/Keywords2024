@@ -1,7 +1,35 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const points = document.querySelectorAll(".point");
+    const pointsContainer = document.getElementById("menuCtCandidates"); // Der Container, in den wir die Punkte einfügen
     const donaldImage = document.getElementById("donald");
     const kamalaImage = document.getElementById("kamala");
+
+    // Anzahl der Punkte (Kalenderwochen)
+    const totalWeeks = 10;
+
+    // Dynamisch die Punkte und Labels erstellen
+    for (let i = 0; i < totalWeeks; i++) {
+        const weekNumber = 42 + i; // KW 42 bis KW 51
+
+        // Erstelle ein neues Punkt-Element
+        const point = document.createElement("div");
+        point.classList.add("point");
+
+        // Erstelle ein neues Label-Element
+        const label = document.createElement("span");
+        label.classList.add("label");
+        label.textContent = `KW ${weekNumber}`;
+
+        // Füge das Label zum Punkt hinzu
+        point.appendChild(label);
+
+        // Füge Click-Event-Listener hinzu
+        point.addEventListener("click", function() {
+            loadWeekData(weekNumber); // Lade die Daten für die ausgewählte Woche
+        });
+
+        // Füge den Punkt zum Container hinzu
+        pointsContainer.appendChild(point);
+    }
 
     // Funktion, um Daten basierend auf der Woche zu laden
     function loadWeekData(week) {
@@ -22,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 weekData.forEach(entry => {
                     if (entry.keyword === "Donald J Trump") {
                         donaldCount = entry.count;
-                    } else if (entry.keyword === "Kamala Harris") {
+                    } else if (entry.keyword === "Kamala D Harris") {
                         kamalaCount = entry.count;
                     }
                 });
@@ -35,14 +63,6 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .catch(error => console.error('Fehler beim Laden der Daten:', error));
     }
-
-    // Füge jedem Punkt einen Click-Event-Listener hinzu
-    points.forEach(point => {
-        point.addEventListener("click", function() {
-            const week = this.getAttribute("data-week");
-            loadWeekData(week); // Lade die Daten für die ausgewählte Woche
-        });
-    });
 
     // Lade die Daten für die erste Woche beim Start (z.B. KW 42)
     loadWeekData(42);
