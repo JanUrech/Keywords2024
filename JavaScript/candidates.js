@@ -78,5 +78,5 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Lade die Daten für die erste Woche beim Start (z.B. KW 42)
-    loadWeekData(42);
+    loadWeekData(0);
 });
