@@ -21,28 +21,17 @@ map.setMinZoom(2);           // Verhindert, dass weiter herausgezoomt wird
 const swingStates = ["Wisconsin", "Pennsylvania", "Arizona", "Nevada", "Georgia", "North Carolina", "Michigan"];
 
 // Funktion, um die Farbe basierend auf den count-Werten zu bestimmen
-function getColor(c) {
-    return c > 15 ? '#800026' :
-           c > 10  ? '#BD0026' :
-           c > 5   ? '#E31A1C' :
-           c > 2   ? '#FC4E2A' :
-           c > 0   ? '#FD8D3C' :
-                      '#FFEDA0';
-}
-
-// Funktion, um den Stil für die GeoJSON-Features zu definieren (basierend auf count und Swing State)
-function style(feature) {
-    const stateName = feature.properties.name;
-    const isSwingState = swingStates.includes(stateName);
-
-    return {
-        fillColor: getColor(feature.properties.count),  // Nutze count für die Füllfarbe
-        weight: isSwingState ? 4 : 2,                   // Dickere Grenzen für Swing States
-        opacity: 1,
-        color: isSwingState ? '#77B84D' : 'white',      // Blaue Grenze für Swing States, weiße Grenze für andere
-        dashArray: '5',                                 // Gleiche Strichel-Linie für alle
-        fillOpacity: 0.7
-    };
+function getColor(c, minCount, maxCount) {
+    // Normalisiere den count-Wert auf einen Bereich von 0 bis 1
+    const normalizedValue = (c - minCount) / (maxCount - minCount);
+    
+    // Setze die Farben basierend auf dem normalisierten Wert
+    return normalizedValue > 0.8 ? '#741B8C' :  // Dunkles Lila
+           normalizedValue > 0.6 ? '#B849D6' :  // Helles Lila
+           normalizedValue > 0.4 ? '#BF69D6' :  // Mittel-Lila
+           normalizedValue > 0.2 ? '#CF94E0' :  // Pastell-Lila
+           normalizedValue > 0 ? '#D4ABE0' :     // Helle Pastellfarbe
+                                '#EFE4F2';      // Fast Weiß
 }
 
 // Tooltip-Funktion, um den count-Wert anzuzeigen
@@ -62,22 +51,40 @@ function onEachFeature(feature, layer) {
 
 // Funktion, um die Karte mit den Daten zu aktualisieren
 function updateMapWithData(apiData) {
+    // Berechne den maximalen und minimalen Count
+    let minCount = Infinity;
+    let maxCount = -Infinity;
+
     // Durchlaufe die GeoJSON-Daten (statesData)
     statesData.features.forEach(state => {
         // Finde das entsprechende Keyword im API-Datensatz
         const matchingState = apiData.find(entry => entry.keyword === state.properties.name);
+        const count = matchingState ? matchingState.count : 0;
 
-        // Wenn ein passender Bundesstaat gefunden wurde, setze den Count als neues Attribut
-        if (matchingState) {
-            state.properties.count = matchingState.count;  // Speichere den count-Wert in den Eigenschaften des Staates
-        } else {
-            state.properties.count = 0; // Setze auf 0, wenn kein passender Bundesstaat im API-Datensatz gefunden wurde
+        // Setze den count als neues Attribut
+        state.properties.count = count;
+
+        // Aktualisiere min und max Count
+        if (count < minCount) {
+            minCount = count;
+        }
+        if (count > maxCount) {
+            maxCount = count;
         }
     });
 
     // Füge die aktualisierten GeoJSON-Daten der Karte hinzu
     L.geoJson(statesData, {
-        style: style,               // Wende die style-Funktion an
+        style: function (feature) {
+            return {
+                fillColor: getColor(feature.properties.count, minCount, maxCount),  // Verwende min und max Count
+                weight: swingStates.includes(feature.properties.name) ? 4 : 2,    // Dickere Grenzen für Swing States
+                opacity: 1,
+                color: swingStates.includes(feature.properties.name) ? '#FAE354' : '#363112', // Behalte die Grenzfarben
+                dashArray: '5',                                 // Gleiche Strichel-Linie für alle
+                fillOpacity: 0.7
+            };
+        },
         onEachFeature: onEachFeature // Tooltips hinzufügen
     }).addTo(map);
 }

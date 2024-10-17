@@ -23,7 +23,7 @@ try {
 }
 
 // 'Geo'-Keywords mit ihren Zählern abrufen
-$stmt = $pdo->prepare("SELECT keyword, COUNT(*) as count FROM keywords WHERE type = 'Geo' GROUP BY keyword HAVING count > 2 ORDER BY count DESC");
+$stmt = $pdo->prepare("SELECT keyword, COUNT(*) as count FROM keywords WHERE type = 'Geo' GROUP BY keyword ORDER BY count DESC");
 $stmt->execute();
 $keywords = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

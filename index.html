@@ -17,9 +17,6 @@
 
     <!-- Word Cloud Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.2.2/wordcloud2.min.js"></script>
-
-
-
 </head>
 
 
@@ -89,8 +86,52 @@
         </section>
 
     </main>
-    </article>
-    </Section>
+
+    <!-- Container für die Grafiken -->
+    <div id="graphics">
+        <img src="Images/backLines.png" style="position: absolute; width: 500px;">
+        <img id="donald-img" src="Images/donald.png" alt="Donald J Trump">
+        <img id="kamala-img" src="Images/kamala.png" alt="Kamala D Harris">
+    </div>
+    <!-- Menü-Container mit der Linie und 10 Punkten -->
+    <div class="menu-container">
+        <!-- Die Linie im Hintergrund -->
+        <div class="line"></div>
+
+        <!-- Die 10 Punkte -->
+        <div class="point">
+            <span class="label">KW 42</span>
+        </div>
+        <div class="point">
+            <span class="label">KW 43</span>
+        </div>
+        <div class="point">
+            <span class="label">KW 44</span>
+        </div>
+        <div class="point">
+            <span class="label">KW 45</span>
+        </div>
+        <div class="point">
+            <span class="label">KW 46</span>
+        </div>
+        <div class="point">
+            <span class="label">KW 47</span>
+        </div>
+        <div class="point">
+            <span class="label">KW 48</span>
+        </div>
+        <div class="point">
+            <span class="label">KW 49</span>
+        </div>
+        <div class="point">
+            <span class="label">KW 50</span>
+        </div>
+        <div class="point">
+            <span class="label">KW 51</span>
+        </div>
+    </div>
+
+
 
 
 
@@ -99,6 +140,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="JavaScript/map.js" defer></script>
+    <script src="JavaScript/candidates.js"></script>
 </body>
 
 </html>

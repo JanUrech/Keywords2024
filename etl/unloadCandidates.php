@@ -16,24 +16,24 @@ try {
     die("Could not connect to the database: " . $e->getMessage());
 }
 
-// Kandidaten festlegen
+// Kandidaten festlegen (Keywords)
 $candidates = ['Donald J Trump', 'Kamala D Harris'];
 
-// Bereite die SQL-Abfrage vor
+// Bereite die SQL-Abfrage vor, um die Daten nach Kalenderwoche und Jahr zu gruppieren
 $stmt = $pdo->prepare("
     SELECT 
-        WEEK(created_at, 1) AS week_number, 
-        YEAR(created_at) AS year, 
+        WEEK(published_date, 1) AS week_number,  -- Berechnung der Kalenderwoche
+        YEAR(published_date) AS year,  -- Berechnung des Jahres
         keyword, 
-        COUNT(*) AS count 
+        COUNT(*) AS count  -- Zählen der Erwähnungen
     FROM 
         keywords 
     WHERE 
-        keyword IN (:candidate1, :candidate2) 
+        keyword IN (:candidate1, :candidate2)  -- Filter für die beiden Kandidaten
     GROUP BY 
-        week_number, year, keyword 
+        week_number, year, keyword  -- Gruppieren nach Kalenderwoche, Jahr und Keyword
     ORDER BY 
-        year DESC, week_number DESC
+        year DESC, week_number DESC  -- Ergebnisse sortieren
 ");
 
 // Binde die Kandidatennamen an die Platzhalter
