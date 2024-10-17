@@ -2,7 +2,7 @@
    Global styles
    ================================ */
 
-   :root {
+:root {
     --darkpurple: #44354C;
     --brightpurple: #BB89BD;
     --lightpurple: #ECDAF2;
@@ -14,23 +14,25 @@ body {
     background-color: var(--darkpurple);
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 main {
-    margin-left: 10vw;
-    margin-right: 10vw;
+    width: 80vw;
     display: flex;
     flex-direction: column;
-align-items: center;
+    align-items: center;
 }
 
 section {
     display: flex;
     flex-direction: column;
+    max-width: 100%;
 }
 
 article {
     max-width: 700px;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -75,10 +77,10 @@ p {
 }
 
 #map {
-    width: 80%;
+    width: 100%;
     aspect-ratio: 1.7/1;
     background: none;
-    align-self: flex-start;
+    align-self: center;
 }
 
 .leaflet-bottom.leaflet-right {
@@ -114,9 +116,6 @@ img {
     margin: 10px 0;
 }
 
-#menu {
-    margin-bottom: 20px;
-}
 
 /* ================================
    Graphics
@@ -138,39 +137,36 @@ img {
 
 .menuContainer {
     width: 50vw;
-    margin: 50px auto;
+    margin: 0 ;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     position: relative;
-    height: 50px; /* Höhe des Menüs */
+    height: 50px;
+    /* Höhe des Menüs */
 }
 
-/* Linie */
-.line {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background-color: #ccc;
-    z-index: 1;
-}
 
 /* Punkte */
 .point {
     position: relative;
     z-index: 2;
-    width: 5%; /* Breite jedes Punktes */
-    aspect-ratio: 1/1; /* Höhe jedes Punktes */
-    background-color: var(--lightpurple); /* Hintergrundfarbe der Punkte */
-    border-radius: 50%; /* Runde Punkte */
+    width: 5%;
+    /* Breite jedes Punktes */
+    aspect-ratio: 1/1;
+    /* Höhe jedes Punktes */
+    background-color: var(--lightpurple);
+    /* Hintergrundfarbe der Punkte */
+    border-radius: 50%;
+    /* Runde Punkte */
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white; /* Textfarbe */
-    cursor: pointer; /* Mauszeiger als Hand anzeigen */
+    color: white;
+    /* Textfarbe */
+    cursor: pointer;
+    /* Mauszeiger als Hand anzeigen */
     transition: background-color 0.3s ease;
 }
 
@@ -182,42 +178,111 @@ img {
 .point:not(:last-child):after {
     content: '';
     position: absolute;
-    width: calc(100% + 5px); /* Breite der Linie */
-    height: 2px; /* Dicke der Linie */
-    background-color: var(--lightpurple); /* Farbe der Linie */
-    top: 50%; /* Linie in der Mitte der Punkte */
-    left: 100%; /* Linie nach dem Punkt positionieren */
-    transform: translateY(-50%); /* Vertikale Zentrierung der Linie */
+    width: calc(100% + 5px);
+    /* Breite der Linie */
+    height: 0.5vw;
+    /* Dicke der Linie */
+    background-color: var(--lightpurple);
+    /* Farbe der Linie */
+    top: 50%;
+    /* Linie in der Mitte der Punkte */
+    left: 100%;
+    /* Linie nach dem Punkt positionieren */
+    transform: translateY(-50%);
+    /* Vertikale Zentrierung der Linie */
 }
 
 /* Beschriftung der Punkte standardmäßig verstecken */
 .label {
-    position: absolute; /* Positionierung für Text */
+    position: absolute;
+    /* Positionierung für Text */
     top: -20px;
     width: 60px;
     text-align: center;
     font-family: "brando", serif;
     font-size: 12px;
     left: -15px;
-    display: none; /* Standardmäßig verstecken */
+    display: none;
+    /* Standardmäßig verstecken */
 }
 
 /* Zeige die Beschriftung beim Hover an */
 .point:hover .label {
-    display: block; /* Nur beim Hover anzeigen */
+    display: block;
+    /* Nur beim Hover anzeigen */
 }
-
 
 /* Bildgrößenanpassung für die Kandidaten */
 #donald,
 #kamala {
-    height: 50px; /* Startgröße */
-    transition: height 0.3s; /* Animation für Größenänderung */
+    display: flex;
+    justify-content: center;
+    z-index: 2;
+    /* Stellt sicher, dass die Kandidatenbilder über dem Hintergrundbild angezeigt werden */
+    width: auto;
+    /* Breite wird durch JavaScript festgelegt */
+    aspect-ratio: 4 / 10;
+    /* Verhältnis von Breite zu Höhe */
+    object-fit: contain;
+    /* Skaliert das Bild, ohne die Aspect Ratio zu verändern */
+    margin: 0 10px;
+    /* Abstand zwischen den Kandidatenbildern */
 }
 
-
+/* Wordcloud Container */
 #wordcloud {
     width: 100%;
     height: 500px;
+}
 
+/* Grafik für die Kandidaten */
+#candidatesGraphic {
+    position: relative;
+    /* Ermöglicht die absolute Positionierung von Hintergrundbildern */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    /* Verteilt die Kandidaten gleichmäßig */
+    align-items: flex-end;
+    /* Kandidatenbilder am unteren Rand ausrichten */
+    width: 80%;
+    max-width: 500px;
+    /* Maximale Breite für die Flexbox */
+    aspect-ratio: 1 / 1;
+    /* Quadratische Flexbox */
+}
+
+/* Hintergrundlinien */
+#backgroundLines {
+    position: absolute;
+    /* Setzt das Hintergrundbild hinter die anderen Bilder */
+    width: 100%;
+    height: 100%;
+    /* Hintergrundbild füllt die Flexbox vollständig aus */
+    object-fit: contain;
+    /* Hintergrundbild wird skaliert, ohne verzerrt zu werden */
+    z-index: 1;
+    /* Hintergrund bleibt hinter den Kandidatenbildern */
+    margin: 0;
+}
+
+.candidateCounts {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    align-items: center;
+}
+
+#candidatesDescriptions {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    max-width: 500px;
+}
+
+#countKamala, #countDonald {
+    font-family: "brando", serif;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 0 10px;
 }

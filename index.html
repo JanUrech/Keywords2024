@@ -37,9 +37,10 @@
         <section class="right">
             <article>
                 <h1>WordCloud</h1>
-                <p>The wordcloud shows the most used keywords of the selected month. The larger a word, the more it has been used.</p>
+                <p>The wordcloud shows the most used keywords of the selected month. The larger a word, the more it has
+                    been used.</p>
             </article>
-            <article>
+            <article class="graphics">
                 <div id="wordCloud" style="width: 600px; height: 400px;"></div>
                 <div class="menuContainer" id="menuCtWordcloud"></div>
             </article>
@@ -48,7 +49,8 @@
         <section class="left">
             <article>
                 <h1>Bars</h1>
-                <p>To get a better overview over the last months and the development over time, here you can see how the top 10 have changed over the past months.</p>
+                <p>To get a better overview over the last months and the development over time, here you can see how the
+                    top 10 have changed over the past months.</p>
             </article>
             <article>
                 <div id="keywordBars"></div>
@@ -58,30 +60,45 @@
         <section class="right">
             <article>
                 <h1>States</h1>
-                <p>See on which states the focus is in the New York Times News Broadcast. Here the traditionally red and blue states are in their respective colors. The ominous swing states are displayed in purple. The size of the state is determined by the amount of times it was mentioned in the broadcast.</p>
+                <p>See on which states the focus is in the New York Times News Broadcast. Here the traditionally red and
+                    blue states are in their respective colors. The ominous swing states are displayed in purple. The
+                    size of the state is determined by the amount of times it was mentioned in the broadcast.</p>
             </article>
+            <article class="graphics">
             <div id="map"></div>
+            </article>
         </section>
 
         <section>
             <article>
                 <h1>Candidates</h1>
-                <p>Now let's concentrate on the candidates involved in the election themselves. Check in which month who of the two was in the focus more.</p>
+                <p>Now let's concentrate on the candidates involved in the election themselves. Check in which month who
+                    of the two was in the focus more.</p>
             </article>
-            <article>
-                <div id="candidatesList"></div>
+            <article class="graphics">
+                <!-- Container für die Grafiken -->
+                <div id="candidatesGraphic">
+                    <img src="Images/backLines.png" id="backgroundLines">
+                    <img id="donald" src="Images/donald.png" alt="Donald J Trump">
+                    <img id="kamala" src="Images/kamala.png" alt="Kamala D Harris">
+                </div>
+                <div id="candidatesDescriptions">
+                    <div class="candidateCounts">
+                        <p>Donald Trump</p>
+                      <p><span id="countDonald"></span> mentions</p>
+                    </div>
+
+
+                    <div class="candidateCounts">
+                        <p>Kamala Harris</p>
+                        <p><span id="countKamala"></span> mentions </p>
+                    </div>
+                </div>
+
+                <!-- Container für das Menü -->
+                <div class="menuContainer" id="menuCtCandidates"></div>
             </article>
         </section>
-
-        <!-- Container für die Grafiken -->
-        <div id="graphics">
-            <img src="Images/backLines.png" style="position: absolute; width: 500px;" alt="Background Lines">
-            <img id="donald" src="Images/donald.png" alt="Donald J Trump">
-            <img id="kamala" src="Images/kamala.png" alt="Kamala D Harris">
-        </div>
-
-        <!-- Container für das Menü -->
-        <div class="menuContainer" id="menuCtCandidates"></div>
     </main>
 
     <!-- Weitere JavaScript-Dateien -->

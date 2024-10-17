@@ -1,7 +1,9 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const menuContainer = document.getElementById("menuCtCandidates");
     const donaldImage = document.getElementById("donald");
     const kamalaImage = document.getElementById("kamala");
+    const countDonaldElement = document.getElementById("countDonald");  // Element für Donalds Count
+    const countKamalaElement = document.getElementById("countKamala");  // Element für Kamalas Count
 
     // Die Kalenderwochen, die du anzeigen möchtest
     const weeks = [41, 42, 43, 44, 45, 46, 47, 48, 49, 50];
@@ -14,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
         point.innerHTML = `<span class="label">KW ${week}</span>`;
 
         // Event-Listener für den Click-Event hinzufügen
-        point.addEventListener("click", function() {
+        point.addEventListener("click", function () {
             loadWeekData(week); // Lade die Daten für die ausgewählte Woche
         });
 
@@ -48,9 +50,29 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 console.log(`Donald Count: ${donaldCount}, Kamala Count: ${kamalaCount}`); // Debugging
 
-                // Dynamische Anpassung der Höhe der Bilder basierend auf den counts
-                donaldImage.style.height = `${50 + donaldCount * 10}px`; // Zum Beispiel: 10px pro Erwähnung
-                kamalaImage.style.height = `${50 + kamalaCount * 10}px`;
+                // Dynamische Anpassung der Höhe und Breite der Bilder basierend auf den counts
+                const aspectRatio = 4 / 10;  // Original Aspect Ratio (Breite/Höhe-Verhältnis)
+                const maxPercentage = 100;  // Maximale Höhe in Prozent (bei 150 Counts 100%)
+
+                // Funktion zur Berechnung der Höhe basierend auf dem Count in Prozent
+                function calculateHeightPercentage(count) {
+                    const maxCount = 150; // Maximale Erwähnungen, die 100% entsprechen
+                    return (count / maxCount) * maxPercentage;  // Höhe im Verhältnis zur maximalen Anzahl in Prozent
+                }
+
+                // Donald
+                const donaldHeightPercentage = calculateHeightPercentage(donaldCount);
+                donaldImage.style.height = `${donaldHeightPercentage}%`;
+                donaldImage.style.width = `${donaldHeightPercentage * aspectRatio}%`;  // Breite basierend auf der Aspect Ratio
+
+                // Kamala
+                const kamalaHeightPercentage = calculateHeightPercentage(kamalaCount);
+                kamalaImage.style.height = `${kamalaHeightPercentage}%`;
+                kamalaImage.style.width = `${kamalaHeightPercentage * aspectRatio}%`;  // Breite basierend auf der Aspect Ratio
+
+                // Counts in den entsprechenden HTML-Elementen anzeigen
+                countDonaldElement.textContent = donaldCount;  // Zähler für Donald anzeigen
+                countKamalaElement.textContent = kamalaCount;  // Zähler für Kamala anzeigen
             })
             .catch(error => console.error('Fehler beim Laden der Daten:', error));
     }
