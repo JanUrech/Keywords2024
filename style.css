@@ -19,6 +19,9 @@ body {
 main {
     margin-left: 10vw;
     margin-right: 10vw;
+    display: flex;
+    flex-direction: column;
+align-items: center;
 }
 
 section {
@@ -84,6 +87,7 @@ p {
 
 g {
     width: 100%;
+    align-self: center;
 }
 
 /* Standard-Tooltip-Styling */
@@ -132,10 +136,11 @@ img {
    Menu styles
    ================================ */
 
-.menu-container {
-    width: 80%;
+.menuContainer {
+    width: 50vw;
     margin: 50px auto;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     position: relative;
@@ -157,9 +162,9 @@ img {
 .point {
     position: relative;
     z-index: 2;
-    width: 40px; /* Breite jedes Punktes */
-    height: 40px; /* Höhe jedes Punktes */
-    background-color: #007bff; /* Hintergrundfarbe der Punkte */
+    width: 5%; /* Breite jedes Punktes */
+    aspect-ratio: 1/1; /* Höhe jedes Punktes */
+    background-color: var(--lightpurple); /* Hintergrundfarbe der Punkte */
     border-radius: 50%; /* Runde Punkte */
     display: flex;
     align-items: center;
@@ -170,16 +175,16 @@ img {
 }
 
 .point:hover {
-    background-color: #0056b3;
+    background-color: var(--brightpurple);
 }
 
 /* Verbindungslinie zwischen Punkten */
 .point:not(:last-child):after {
     content: '';
     position: absolute;
-    width: 100px; /* Breite der Linie */
+    width: calc(100% + 5px); /* Breite der Linie */
     height: 2px; /* Dicke der Linie */
-    background-color: #007bff; /* Farbe der Linie */
+    background-color: var(--lightpurple); /* Farbe der Linie */
     top: 50%; /* Linie in der Mitte der Punkte */
     left: 100%; /* Linie nach dem Punkt positionieren */
     transform: translateY(-50%); /* Vertikale Zentrierung der Linie */
@@ -188,11 +193,12 @@ img {
 /* Beschriftung der Punkte standardmäßig verstecken */
 .label {
     position: absolute; /* Positionierung für Text */
-    top: -30px;
+    top: -20px;
     width: 60px;
     text-align: center;
+    font-family: "brando", serif;
     font-size: 12px;
-    left: -20px;
+    left: -15px;
     display: none; /* Standardmäßig verstecken */
 }
 
@@ -210,3 +216,8 @@ img {
 }
 
 
+#wordcloud {
+    width: 100%;
+    height: 500px;
+
+}

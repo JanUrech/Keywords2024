@@ -1,35 +1,26 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const pointsContainer = document.getElementById("menuCtCandidates"); // Der Container, in den wir die Punkte einfügen
+    const menuContainer = document.getElementById("menuCtCandidates");
     const donaldImage = document.getElementById("donald");
     const kamalaImage = document.getElementById("kamala");
 
-    // Anzahl der Punkte (Kalenderwochen)
-    const totalWeeks = 10;
+    // Die Kalenderwochen, die du anzeigen möchtest
+    const weeks = [41, 42, 43, 44, 45, 46, 47, 48, 49, 50];
 
-    // Dynamisch die Punkte und Labels erstellen
-    for (let i = 0; i < totalWeeks; i++) {
-        const weekNumber = 42 + i; // KW 42 bis KW 51
-
-        // Erstelle ein neues Punkt-Element
+    // Dynamisch das Menü erstellen
+    weeks.forEach(week => {
         const point = document.createElement("div");
         point.classList.add("point");
+        point.setAttribute("data-week", week);
+        point.innerHTML = `<span class="label">KW ${week}</span>`;
 
-        // Erstelle ein neues Label-Element
-        const label = document.createElement("span");
-        label.classList.add("label");
-        label.textContent = `KW ${weekNumber}`;
-
-        // Füge das Label zum Punkt hinzu
-        point.appendChild(label);
-
-        // Füge Click-Event-Listener hinzu
+        // Event-Listener für den Click-Event hinzufügen
         point.addEventListener("click", function() {
-            loadWeekData(weekNumber); // Lade die Daten für die ausgewählte Woche
+            loadWeekData(week); // Lade die Daten für die ausgewählte Woche
         });
 
-        // Füge den Punkt zum Container hinzu
-        pointsContainer.appendChild(point);
-    }
+        // Das Menü in den Container einfügen
+        menuContainer.appendChild(point);
+    });
 
     // Funktion, um Daten basierend auf der Woche zu laden
     function loadWeekData(week) {

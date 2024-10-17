@@ -6,99 +6,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keys of 2024</title>
 
-
-    <!-- Deine eigenen CSS-Dateien -->
+    <!-- CSS-Dateien -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://use.typekit.net/hfr1ina.css">
     <link rel="icon" href="Images/Favicon.svg" type="image/x-icon">
-
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
-    <!-- Word Cloud Library -->
+    <!-- JavaScript-Bibliotheken -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.2.2/wordcloud2.min.js"></script>
+    <script src="JavaScript/wordCloud.js" defer></script>
 </head>
-
 
 <body>
     <header>
-        <img src="Images/Artboard 17.svg" alt="The keys to the 2024 election" id="titleIMG">
+        <img src="Images/Header.svg" alt="The keys to the 2024 election" id="titleIMG">
     </header>
-
 
     <main>
 
-        <section alt="intro">
-            <article alt="introText">
-                <h2 class=""></h2>
-                <p class=""></p>
+
+
+        <section class="intro">
+            <article>
+                <h2></h2>
+                <p></p>
             </article>
         </section>
-        <section alt="wordcloudCt" class="right">
-            <article alt="wordcloudText">
+
+        <section class="right">
+            <article>
                 <h1>WordCloud</h1>
-                <p>The wordcloud shows the most used keywords of the selected month. The larger a word, the more it
-                    has been used.</p>
+                <p>The wordcloud shows the most used keywords of the selected month. The larger a word, the more it has been used.</p>
             </article>
-            <article alt="wordcloudGraphic">
-                <div id="wordcloud"></div>
+            <article>
+                <div id="wordCloud" style="width: 600px; height: 400px;"></div>
+                <div class="menuContainer" id="menuCtWordcloud"></div>
             </article>
         </section>
-        <!-- Section: KeywordBars -->
-        <section alt="keywordBarsCt" class="left">
-            <article alt="keywordBarsText">
+
+        <section class="left">
+            <article>
                 <h1>Bars</h1>
-                <p>To get a better overview over the last months and the development over time here you can see how
-                    the top 10 have changed over the passed months. </p>
+                <p>To get a better overview over the last months and the development over time, here you can see how the top 10 have changed over the past months.</p>
             </article>
-            <article alt="keywordBarsGraphic">
-                <div alt="keywordBars"></div>
+            <article>
+                <div id="keywordBars"></div>
             </article>
         </section>
 
-        <!-- Section: States -->
-        <section alt="statesCt" class="right">
-            <article alt="statesText">
+        <section class="right">
+            <article>
                 <h1>States</h1>
-                <p>See on which states the focus is in the New York Times News Broadcast. Here the traditionally red
-                    and blue states are in their respective colors.
-                    The ominous swingstates are displayed in purple. The size of the state is determined by the
-                    amount of times it was mentioned in the broadcast.
-                </p>
+                <p>See on which states the focus is in the New York Times News Broadcast. Here the traditionally red and blue states are in their respective colors. The ominous swing states are displayed in purple. The size of the state is determined by the amount of times it was mentioned in the broadcast.</p>
             </article>
-
-            <div id="map">
-
-            </div>
+            <div id="map"></div>
         </section>
 
-
-        <!-- Section: Candidates -->
-        <section alt="candidatesCt">
-            <article alt="candidatesText">
+        <section>
+            <article>
                 <h1>Candidates</h1>
-                <p> Now lets concentrate on the candidates involved in the eletion themselves. Ceck in which month,
-                    who of the two was in the focus more. </p>
+                <p>Now let's concentrate on the candidates involved in the election themselves. Check in which month who of the two was in the focus more.</p>
             </article>
-            <article alt="candidatesGraphic">
-                <div alt="candidatesList"></div>
+            <article>
+                <div id="candidatesList"></div>
             </article>
         </section>
 
+        <!-- Container für die Grafiken -->
+        <div id="graphics">
+            <img src="Images/backLines.png" style="position: absolute; width: 500px;" alt="Background Lines">
+            <img id="donald" src="Images/donald.png" alt="Donald J Trump">
+            <img id="kamala" src="Images/kamala.png" alt="Kamala D Harris">
+        </div>
+
+        <!-- Container für das Menü -->
+        <div class="menuContainer" id="menuCtCandidates"></div>
     </main>
 
-    <!-- Container für die Grafiken -->
-    <div id="graphics">
-        <img src="Images/backLines.png" style="position: absolute; width: 500px;">
-        <img id="donald" src="Images/donald.png" alt="Donald J Trump">
-        <img id="kamala" src="Images/kamala.png" alt="Kamala D Harris">
-    </div>
-
-   <!-- Container für das Menü -->
-<div class="menuContainer" id="menuCtCandidates"></div>
-  
+    <!-- Weitere JavaScript-Dateien -->
     <script src="JavaScript/us-states.js" defer></script>
-
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="JavaScript/map.js" defer></script>

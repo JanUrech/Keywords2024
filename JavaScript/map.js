@@ -39,7 +39,7 @@ function onEachFeature(feature, layer) {
     // Tooltip, der den Namen und den count des Bundesstaates zeigt
     if (feature.properties && feature.properties.name && feature.properties.count !== undefined) {
         layer.bindTooltip(
-            `<strong>${feature.properties.name}</strong><br>Counts: ${feature.properties.count}`,
+            `<strong>${feature.properties.name}</strong><br>Mentions: ${feature.properties.count}`,
             {
                 permanent: false,
                 direction: 'auto',
