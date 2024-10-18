@@ -319,4 +319,12 @@ img {
     #map {
         width: 100%;
     }
+
+    .menuContainer{
+
+        width: 100%;
+    }
+
+    section{margin-top: 20px;
+    margin-bottom: 20px;}
 }
