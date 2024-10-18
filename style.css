@@ -27,7 +27,7 @@ main {
 section {
     display: flex;
     flex-direction: column;
- width: 100%;
+    width: 100%;
 }
 
 article {
@@ -35,6 +35,7 @@ article {
     max-width: 100%;
     display: flex;
     flex-direction: column;
+    margin: 20px 0 20px 0;
 }
 
 .left {
@@ -133,7 +134,7 @@ img {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    max-width: 400px;
+    max-width: 700px;
 }
 
 /* ================================
@@ -142,6 +143,7 @@ img {
 
 .menuContainer {
     width: 50vw;
+    max-width: 500px;
     margin: 20px 0;
     display: flex;
     flex-direction: row;
@@ -235,9 +237,12 @@ img {
 }
 
 /* Wordcloud Container */
-#wordcloud {
+#wordCloud {
     width: 100%;
-    height: 500px;
+    aspect-ratio: 2/1;
+    max-height: 500px;
+    text-align: center;
+    justify-content: center;
 }
 
 /* Grafik für die Kandidaten */
@@ -279,8 +284,8 @@ img {
 }
 
 .candidateNames {
-margin: 0;
-font-weight: 500;
+    margin: 0;
+    font-weight: 500;
 }
 
 #candidatesDescriptions {
@@ -291,9 +296,27 @@ font-weight: 500;
     max-width: 500px;
 }
 
-#countKamala, #countDonald {
+#countKamala,
+#countDonald {
     font-family: "brando", serif;
     font-size: 12px;
     font-weight: 600;
     margin: 0 10px;
+}
+
+/* Media Queries*/
+@media (max-width: 750px) {
+
+    main {
+        width: 90vw;
+    }
+
+    #wordCloud {
+        max-width: 100%;
+
+    }
+
+    #map {
+        width: 100%;
+    }
 }

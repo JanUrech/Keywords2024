@@ -4,7 +4,7 @@ var map = L.map('map', {
     dragging: true,          // Aktiviert Dragging
     doubleClickZoom: false,   // Deaktiviert Doppelklick-Zoom
     zoomControl: false        // Entfernt die Zoom-Kontrollleiste
-}).setView([37.8, -96], 5);  // Zentriert auf die USA
+}).setView([37.8, -96], 4);  // Zentriert auf die USA
 
 // Begrenze die Karte auf die USA (Bounding Box für die USA)
 var bounds = [

@@ -1,31 +1,29 @@
 document.addEventListener("DOMContentLoaded", async function () {
     const wordCloudElement = document.getElementById("wordCloud");
-    const pointsContainer = document.getElementById("menuCtWordcloud"); // Container für das Menü (WordCloud)
-    let allData = []; // Zum Speichern aller Daten
-    const totalWeeks = 10; // Anzahl der Wochen (KW 42 bis KW 51)
+    const pointsContainer = document.getElementById("menuCtWordcloud");
+    let allData = [];
+    const totalWeeks = 10;
+
+    // Zeige initial die Nachricht "Please select week"
+    wordCloudElement.innerHTML = "<p>Please select a week below</p>";
 
     // Dynamisch die Punkte und Labels für Kalenderwochen erstellen
     for (let i = 0; i < totalWeeks; i++) {
-        const weekNumber = 41 + i; // KW 41 bis KW 51
+        const weekNumber = 41 + i;
 
-        // Erstelle ein neues Punkt-Element
         const point = document.createElement("div");
         point.classList.add("point");
 
-        // Erstelle ein neues Label-Element
         const label = document.createElement("span");
         label.classList.add("label");
         label.textContent = `KW ${weekNumber}`;
 
-        // Füge das Label zum Punkt hinzu
         point.appendChild(label);
 
-        // Füge Click-Event-Listener hinzu
         point.addEventListener("click", async function () {
-            await loadWeekData(weekNumber); // Lade die Daten für die ausgewählte Woche
+            await loadWeekData(weekNumber);
         });
 
-        // Füge den Punkt zum Container hinzu
         pointsContainer.appendChild(point);
     }
 
@@ -44,80 +42,66 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     }
 
-    // Funktion zum Laden und Darstellen der WordCloud für die ausgewählte Woche
+    // Funktion zum Erstellen der WordCloud
     async function loadWeekData(week) {
         console.log(`Lade Daten für Woche: ${week}`);
-        const weekData = await fetchData(week); // Daten für die ausgewählte Woche abrufen
+        const weekData = await fetchData(week);
 
+        // Wenn keine Daten vorhanden sind, zeige "No Data"
         if (weekData.length === 0) {
+            wordCloudElement.innerHTML = "<p>No data yet.</p>";
             console.warn(`Keine Daten für Woche ${week} gefunden.`);
             return;
         }
 
-        // Array für die WordCloud erstellen
-        const wordCloudData = weekData.map(entry => ({
-            text: entry.keyword.replace(/\"/g, ''), // Entfernen von Anführungszeichen
-            size: entry.count * 10, // Größe basierend auf der Anzahl (z.B. 10px pro Erwähnung)
-            count: entry.count // Speichern der Anzahl für den Tooltip
+        // Daten sortieren, um die populärsten Wörter auszuwählen
+        const sortedData = weekData.sort((a, b) => b.count - a.count);
+
+        // Auf mobilen Geräten nur die Top 20 Wörter anzeigen
+        const isMobile = window.innerWidth <= 768;
+        const wordCloudData = sortedData.slice(0, isMobile ? 20 : sortedData.length).map(entry => ({
+            text: entry.keyword.replace(/\"/g, ''),
+            size: entry.count * 15,
+            count: entry.count
         }));
 
-        // Erstellen der WordCloud mit WordCloud2.js
-        WordCloud(wordCloudElement, {
-            list: wordCloudData.map(item => [item.text, item.size]), // Liste als [text, size]-Paare vorbereiten
-            gridSize: Math.round(16 * window.innerWidth / 1024), // Grid-Größe basierend auf Bildschirmbreite anpassen
-            weightFactor: function (size) { return size / 2; }, // Größenfaktor für die Skalierung
-            fontFamily: 'brando, serif', // Schriftart für die Wörter
+        // Unterschiedliche Einstellungen für Mobile und Desktop
+        const wordCloudOptions = {
+            list: wordCloudData.map(item => [item.text, item.size]),
+            gridSize: Math.round(16 * window.innerWidth / 1024), // Grid-Größe an die Bildschirmgröße anpassen
+            weightFactor: function (size) { return size / (isMobile ? 10 : 6); }, // Kleinere Wörter auf Mobilgeräten
+            fontFamily: 'brando, serif',
             color: function (word, weight) {
-                const hue = 285; // Fixierter Farbton für Lila
-                const saturation = Math.min(30, 0 + weight / 2); // Weniger gesättigt (max. 30%)
-                const lightness = Math.min(85, 65 + weight / 2);  // Heller (65% bis 85%)
+                const hue = 285;
+                const saturation = Math.min(30, 0 + weight / 2);
+                const lightness = Math.min(85, 65 + weight / 2);
                 return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
             },
-            backgroundColor: '#44354C',  // Hintergrundfarbe
-            rotateRatio: 0.5, // Rotationsverhältnis für einige Wörter
-            shuffle: true, // Wörter mischen
-            shape: 'circle', // Kreisform für die WordCloud
-            drawOutOfBound: false, // Nicht außerhalb der Canvas-Grenzen zeichnen
-            click: function(item) { // Click-Event für Wörter
+            backgroundColor: '#44354C',
+            rotateRatio: 0, // Rotation deaktivieren
+            minRotation: 0, // Keine Rotation auf mobilen Geräten
+            maxRotation: 0, // Keine Rotation auf mobilen Geräten
+            shape: isMobile ? function (x, y) { return y > 0.5 ? 1 : -1; } : 'circle', // Rechteckige Form für Mobilgeräte, Kreisform für Desktop
+            drawOutOfBound: false,
+            shuffle: true,
+            click: function(item) {
                 console.log(`Clicked on word: ${item[0]}`);
             }
-        });
+        };
 
-         
-        
-        // Tooltip-Logik hinzufügen
-        addHoverTooltips(wordCloudData);
-    }
+        // Lösche die vorherigen Inhalte der WordCloud (falls vorhanden)
+        wordCloudElement.innerHTML = "";
 
-    // Funktion zum Hinzufügen von Hover-Tooltips
-    function addHoverTooltips(wordCloudData) {
-        const tooltip = document.createElement("div");
-        tooltip.className = "tooltip"; // Klasse für das Tooltip
-        document.body.appendChild(tooltip); // Tooltip zum Body hinzufügen
-        tooltip.style.display = "none"; // Standardmäßig nicht angezeigt
-
-        wordCloudElement.addEventListener('mousemove', function(event) {
-            const wordElement = event.target; // Das aktuelle Wort-Element
-            if (wordElement.classList.contains('word')) { // Überprüfen, ob es ein Wort ist
-                const word = wordElement.innerText; // Das Wort
-                const dataEntry = wordCloudData.find(entry => entry.text === word); // Daten zu diesem Wort finden
-                if (dataEntry) {
-                    tooltip.innerHTML = `<strong>${word}</strong><br>Mentions: ${dataEntry.count}`; // Tooltip-Inhalt
-                    tooltip.style.left = `${event.pageX + 10}px`; // Tooltip positionieren
-                    tooltip.style.top = `${event.pageY + 10}px`;
-                    tooltip.style.display = "block"; // Tooltip anzeigen
-                }
-            }
-        });
-
-        wordCloudElement.addEventListener('mouseout', function(event) {
-            const wordElement = event.target; // Das aktuelle Wort-Element
-            if (wordElement.classList.contains('word')) { // Überprüfen, ob es ein Wort ist
-                tooltip.style.display = "none"; // Tooltip verbergen
-            }
-        });
+        // Erstellen der WordCloud mit den gewählten Optionen
+        WordCloud(wordCloudElement, wordCloudOptions);
     }
 
     // Lade Daten für KW 42 beim Start
-    await loadWeekData(42);
+    //wordCloudElement.innerHTML = "<p>Please select week</p>"; // Nur eine Nachricht, keine Daten initial laden
+
+    // Passe die WordCloud bei einer Größenänderung des Bildschirms an
+    window.addEventListener('resize', async function () {
+        const activeWeek = 42; // Hier könntest du die aktuell ausgewählte Woche dynamisch speichern
+        await loadWeekData(activeWeek);
+    });
 });
